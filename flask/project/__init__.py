@@ -40,4 +40,7 @@ def create_app():
     from project.routes.views import website_blueprint
     app.register_blueprint(website_blueprint)
 
+    from project.routes.api import api_blueprint
+    app.register_blueprint(api_blueprint)
+
     return app
