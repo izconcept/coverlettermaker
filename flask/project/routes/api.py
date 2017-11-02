@@ -1,24 +1,26 @@
 from reportlab.pdfgen import canvas
 from io import BytesIO
-from flask import make_response, redirect, request, Blueprint, Response
+from flask import redirect, request, Blueprint, Response, make_response
 
 api_blueprint = Blueprint('api_blueprint', __name__)
 
 
-@api_blueprint.route('/createcover', methods=['POST'])
+@api_blueprint.route('/createcover', methods=['GET'])
 def create_cover():
-    print('test')
-    if request.method == 'POST':
+    if request.args.get('url'):
+        output = BytesIO()
 
-        with BytesIO() as bytes_io:
-            c = canvas.Canvas(bytes_io)
-            c.drawString(0, 0, "Some sweet PDF.")
-            c.showPage()
-            c.save()
+        p = canvas.Canvas(output)
+        p.drawString(100, 100, 'Hello')
+        p.showPage()
+        p.save()
 
-            response = Response(c)
-            response.headers['Content-Disposition'] = "attachment; filename='test.pdf"
-            response.mimetype = 'application/pdf'
-            return response
+        pdf_out = output.getvalue()
+        output.close()
+
+        response = make_response(pdf_out)
+        response.headers['Content-Disposition'] = "attachment; filename='test.pdf"
+        response.mimetype = 'application/pdf'
+        return response
     else:
-        return redirect('/')
+        return redirect("/")
