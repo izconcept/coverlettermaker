@@ -1,6 +1,8 @@
-from reportlab.pdfgen import canvas
-from io import BytesIO
-from flask import redirect, request, Blueprint, Response, make_response
+import urllib.request
+from flask import redirect, request, Blueprint, make_response
+from project.services.parser import *
+from project.services.pdf_maker import *
+
 
 api_blueprint = Blueprint('api_blueprint', __name__)
 
@@ -8,15 +10,13 @@ api_blueprint = Blueprint('api_blueprint', __name__)
 @api_blueprint.route('/createcover', methods=['GET'])
 def create_cover():
     if request.args.get('url'):
-        output = BytesIO()
 
-        p = canvas.Canvas(output)
-        p.drawString(100, 100, 'Hello')
-        p.showPage()
-        p.save()
+        req = urllib.request.urlopen(request.args.get('url'))
+        res_bytes = req.read()
+        resp_string = res_bytes.decode("utf8")
 
-        pdf_out = output.getvalue()
-        output.close()
+        items = html_parser(resp_string)
+        pdf_out = gen_pdf(items)
 
         response = make_response(pdf_out)
         response.headers['Content-Disposition'] = "attachment; filename='test.pdf"
