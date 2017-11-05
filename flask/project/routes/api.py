@@ -1,5 +1,5 @@
 import urllib.request
-from flask import redirect, request, Blueprint, make_response
+from flask import redirect, request, Blueprint, make_response, flash
 from project.services.parser import *
 from project.services.pdf_maker import *
 
@@ -21,6 +21,7 @@ def create_cover():
         response = make_response(pdf_out)
         response.headers['Content-Disposition'] = "attachment; filename='test.pdf"
         response.mimetype = 'application/pdf'
+
         return response
     else:
         return redirect("/")
