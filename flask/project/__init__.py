@@ -13,6 +13,8 @@ import logging
 
 
 # Defines the format of the logging to include the time and to use the INFO logging level or worse.
+from config import *
+
 logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s', datefmt='%Y-%m-%d %H:%M:%S', level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -25,8 +27,7 @@ db = SQLAlchemy()
 # need to use different configurations for running our tests.
 def create_app():
     app = Flask(__name__)
-    app_settings = os.getenv('APP_SETTINGS')
-    app.config.from_object(app_settings)
+    app.config.from_object(DevelopmentConfig)
 
     db.init_app(app)
 
