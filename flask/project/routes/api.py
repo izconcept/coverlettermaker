@@ -9,7 +9,7 @@ from project.services.pdf_maker import *
 api_blueprint = Blueprint('api_blueprint', __name__)
 
 
-@api_blueprint.route('/createcover', methods=['GET'])
+@api_blueprint.route('/api/v0.0/createcover', methods=['POST'])
 def create_cover():
     if request.args.get('url'):
         try:
@@ -35,4 +35,7 @@ def create_cover():
             print(Exception)
             flash("Server error occured")
     else:
-        return redirect("/")
+        if not request.args.get('url'):
+            return "Missing URL argument"
+        else:
+            return "Bad Request"
