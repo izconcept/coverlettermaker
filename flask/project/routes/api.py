@@ -9,7 +9,7 @@ from project.services.pdf_maker import *
 api_blueprint = Blueprint('api_blueprint', __name__)
 
 
-@api_blueprint.route('/api/v0.0/createcover', methods=['POST'])
+@api_blueprint.route('/api/v0.0/createcover', methods=['GET'])
 def create_cover():
     if request.args.get('url'):
         try:
@@ -21,20 +21,24 @@ def create_cover():
             items = html_parser(resp_string)
             pdf_out = gen_pdf(items)
 
-            response = make_response(pdf_out)
-            response.headers['Content-Disposition'] = "attachment; filename='test.pdf"
-            response.mimetype = 'application/pdf'
+            # print(items, flush=True)
 
-            return response
+            resp = make_response(pdf_out)
+            resp.headers['Content-Disposition'] = "attachment; filename='test.pdf"
+            resp.mimetype = 'application/pdf'
+
+            # return redirect('/')
+            return resp
 
         except ValueError:
-            print("bad URL")
+            print("bad URL", flush=True)
             flash("incorrect URL")
 
         except Exception:
-            print(Exception)
+            print(Exception, flush=True)
             flash("Server error occured")
     else:
+        print('Missing URL', flush=True)
         if not request.args.get('url'):
             return "Missing URL argument"
         else:

@@ -6,7 +6,7 @@ def gen_pdf(items):
     output = BytesIO()
     p = canvas.Canvas(output)
     for item in items:
-        p.drawString(100, 100, "test")
+        p.drawString(100, 100, item)
     p.showPage()
     p.save()
 
