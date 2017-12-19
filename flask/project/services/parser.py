@@ -7,16 +7,21 @@ def html_parser(html):
 
     requirements = soup.body.findAll(text=re.compile('Skills'))
 
-    print(requirements)
-    print(requirements[0])
-    # if len(requirements) > 0:
-    #     for elem in requirements:
-    #         ul = elem.parent.parent.find_next_sibling('ul')
-    #         print(ul, flush=True)
+    requirements_found = True
 
     items = []
 
-    for item in soup.findAll('li'):
-        items.append(item.getText())
+    while requirements_found:
+        print(requirements)
+        for i in range(0, len(requirements)):
+            requirements[i] = requirements[i].parent
+            req = requirements[i]
+            ul = req.find_next_sibling('ul')
+            if ul is not None:
+                list_items = ul.findAll('li')
+                for li in list_items:
+                    if li.text != '':
+                        items.append(li.text)
+                requirements_found = False
 
     return items

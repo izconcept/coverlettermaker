@@ -27,8 +27,8 @@ def create_cover():
             resp.headers['Content-Disposition'] = "attachment; filename='test.pdf"
             resp.mimetype = 'application/pdf'
 
-            return redirect('/')
-            # return resp
+            # return redirect('/')
+            return resp
 
         except ValueError:
             print("bad URL", flush=True)
