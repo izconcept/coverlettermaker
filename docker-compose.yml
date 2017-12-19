@@ -33,11 +33,12 @@ services:
         - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/db_dev
         - DATABASE_TEST_URL=postgresql://postgres:postgres@postgres:5432/db_test
         - SECRET_KEY=dockertutorial
+        - PYTHONUNBUFFERED=0
       depends_on:
         - postgres
       links:
         - postgres
-      command: gunicorn --worker-class eventlet -w 4 -b 0.0.0.0:8000 manage:app
+      command: gunicorn --worker-class eventlet -w 4 -b 0.0.0.0:8000 manage:app --reload
 
     nginx:
       build: ./nginx
