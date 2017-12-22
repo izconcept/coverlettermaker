@@ -10,6 +10,15 @@
         <h1 class="lead">Tags</h1>
         <input id="tagInput" class="form-control" placeholder="Java, Python, Agile">
         <button id="addTag" class="btn btn-light">Add</button>
+
+        <div id="tagList">
+            {% for tag in tags %}
+                <div class="tag">
+                    {{ tag }}
+                    <span aria-hidden="true" class="removeTag">&times;</span>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 
     <form action="/api/v0.0/createcover" method="GET" class="centered-horizontal">

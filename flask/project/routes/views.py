@@ -1,11 +1,11 @@
-from flask import render_template, Blueprint
+from flask import render_template, Blueprint, session
 
 website_blueprint = Blueprint('website_blueprint', __name__)
 
 
 @website_blueprint.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', tags=session['tags'])
 
 
 @website_blueprint.errorhandler(404)

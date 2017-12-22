@@ -12,6 +12,19 @@ form {
     padding-top: 15px;
 }
 
+.tag {
+    width: 300px;
+    padding: 5px;
+}
+
+.removeTag {
+    float: right;
+}
+
+.removeTag:hover {
+    cursor: pointer;
+}
+
 #tags {
     margin-bottom: 20px;
 }

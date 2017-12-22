@@ -13,11 +13,14 @@ api_blueprint = Blueprint('api_blueprint', __name__)
 def add_tag():
     if request.args.get('tag'):
         if 'tags' in session:
-            session['tags'].append(request.args.get('tag'))
+            tags = session['tags']
+            tags.append(request.args.get('tag'))
+            session['tags'] = tags
         else:
             session['tags'] = [request.args.get('tag')]
-    print(session['tags'])
-    return "All Good"
+        return request.args.get('tag')
+    else:
+        return False
 
 
 @api_blueprint.route('/api/v0.0/createcover', methods=['GET'])
