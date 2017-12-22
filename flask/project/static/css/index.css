@@ -7,3 +7,7 @@ form {
     text-align: center;
     margin-bottom: 10px;
 }
+
+#content {
+    padding-top: 15px;
+}

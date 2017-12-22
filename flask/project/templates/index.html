@@ -4,7 +4,10 @@
 <link rel="stylesheet" href="/static/css/index.css">
 <script src="/static/js/index.js"></script>
 
-<div class="container">
+<div class="container" id="content">
+
+    <input class="tagInput" placeholder="tag">
+    <button>Add</button>
 
     <form action="/api/v0.0/createcover" method="GET" class="centered-horizontal">
         <input id="urlInput" name="url" class="form-control centered-horizontal" type="text" placeholder="Job Posting URL">
