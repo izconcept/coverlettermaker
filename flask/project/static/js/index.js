@@ -9,4 +9,19 @@ $(document).ready(function() {
     //         data: $("#urlForm").serialize()
     //     })
     // })
+
+    $("#addTag").click(function() {
+        $.ajax({
+            url: '/api/v0.0/addtag',
+            type: 'GET',
+            data: { tag: $("#tagInput").val() },
+            success: function(payload) {
+                console.log(payload)
+            },
+            failure: function(response) {
+                console.log(response)
+            }
+
+        })
+    })
 });

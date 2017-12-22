@@ -11,3 +11,16 @@ form {
 #content {
     padding-top: 15px;
 }
+
+#tags {
+    margin-bottom: 20px;
+}
+
+#tagInput {
+    width: 300px;
+    display: inline;
+}
+
+#tagInput:focus {
+    outline: none;
+}

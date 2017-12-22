@@ -19,6 +19,9 @@ COV.start()
 # Creates the Flask application object that we use to initialize things in the app.
 app = create_app()
 
+app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
+
+
 import project.models
 db.create_all(app=app)
 

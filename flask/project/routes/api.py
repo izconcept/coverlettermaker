@@ -1,5 +1,5 @@
 import urllib.request
-from flask import redirect, request, Blueprint, make_response, flash
+from flask import redirect, request, Blueprint, make_response, flash, session
 
 from project import logger
 from project.services.parser import *
@@ -7,6 +7,17 @@ from project.services.pdf_maker import *
 
 
 api_blueprint = Blueprint('api_blueprint', __name__)
+
+
+@api_blueprint.route('/api/v0.0/addtag', methods=['GET'])
+def add_tag():
+    if request.args.get('tag'):
+        if 'tags' in session:
+            session['tags'].append(request.args.get('tag'))
+        else:
+            session['tags'] = [request.args.get('tag')]
+    print(session['tags'])
+    return "All Good"
 
 
 @api_blueprint.route('/api/v0.0/createcover', methods=['GET'])
@@ -20,8 +31,6 @@ def create_cover():
 
             items = html_parser(resp_string)
             pdf_out = gen_pdf(items)
-
-            # print(items, flush=True)
 
             resp = make_response(pdf_out)
             resp.headers['Content-Disposition'] = "attachment; filename='test.pdf"
