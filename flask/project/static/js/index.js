@@ -28,5 +28,25 @@ $(document).ready(function () {
             }
 
         })
+    });
+
+    $("#tagList").on('click', '.removeTag', function() {
+        var tag = $(this);
+        $.ajax({
+            url: '/api/v0.0/removeTag',
+            type: 'GET',
+            data: {tag: tag.prev().text().trim()},
+            success: function (payload) {
+                if (payload) {
+                    tag.parent().remove()
+                } else {
+                    alert('error')
+                }
+            },
+            failure: function (response) {
+                console.log(response)
+            }
+
+        })
     })
 });

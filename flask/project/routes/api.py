@@ -20,7 +20,23 @@ def add_tag():
             session['tags'] = [request.args.get('tag')]
         return request.args.get('tag')
     else:
-        return False
+        return 'Failure'
+
+
+@api_blueprint.route('/api/v0.0/removeTag', methods=['GET'])
+def remove_tag():
+    if request.args.get('tag'):
+        print(request.args.get('tag'))
+        if 'tags' in session:
+            tags = session['tags']
+            new_tags = [tag for tag in tags if tag != request.args.get('tag')]
+            session['tags'] = new_tags
+            print(session['tags'])
+            return 'Success'
+        else:
+            return 'Failure'
+    else:
+        return 'Failure'
 
 
 @api_blueprint.route('/api/v0.0/createcover', methods=['GET'])
