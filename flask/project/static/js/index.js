@@ -17,7 +17,7 @@ $(document).ready(function () {
             data: {tag: $("#tagInput").val()},
             success: function (payload) {
                 if (payload) {
-                    $("#tagList").append("<div class=\"tag\">" + payload +
+                    $("#tagList").prepend("<div class=\"tag\">" + payload +
                         "<span aria-hidden=\"true\" class=\"removeTag\">&times;</span></div>")
                 } else {
                     alert('error')
