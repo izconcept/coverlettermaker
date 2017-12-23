@@ -5,7 +5,10 @@ website_blueprint = Blueprint('website_blueprint', __name__)
 
 @website_blueprint.route('/')
 def index():
-    return render_template('index.html', tags=session['tags'])
+    tags = []
+    if 'tags' in session:
+        tags = session['tags']
+    return render_template('index.html', tags=tags)
 
 
 @website_blueprint.errorhandler(404)

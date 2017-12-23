@@ -31,7 +31,6 @@ def remove_tag():
             tags = session['tags']
             new_tags = [tag for tag in tags if tag != request.args.get('tag')]
             session['tags'] = new_tags
-            print(session['tags'])
             return 'Success'
         else:
             return 'Failure'
