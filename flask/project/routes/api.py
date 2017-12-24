@@ -48,15 +48,15 @@ def create_cover():
             resp_string = res_bytes.decode("utf8")
 
             items = html_parser(resp_string)
-            match_tags(items)
+            items = match_tags(items)
             pdf_out = gen_pdf(items)
 
             resp = make_response(pdf_out)
             resp.headers['Content-Disposition'] = "attachment; filename='test.pdf"
             resp.mimetype = 'application/pdf'
 
-            return redirect('/')
-            # return resp
+            # return redirect('/')
+            return resp
 
         except ValueError:
             print("bad URL", flush=True)
