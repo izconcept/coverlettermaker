@@ -1,5 +1,6 @@
 import urllib.request
-from flask import redirect, request, Blueprint, make_response, flash, session
+from flask import redirect, request, Blueprint, make_response, flash, session, url_for
+from werkzeug.utils import secure_filename
 
 from project import logger
 from project.services.parser import *
@@ -71,3 +72,17 @@ def create_cover():
             return "Missing URL argument"
         else:
             return "Bad Request"
+
+
+@api_blueprint.route('/api/v0.0/uploadcv', methods=['POST'])
+def upload_cv():
+    if request.method == 'POST':
+        if 'cv' not in request.files:
+            flash('No file found')
+            return redirect(request.url)
+        else:
+            cv = request.files['cv']
+            if cv.filename == '':
+                return redirect(request.url)
+            print(cv)
+    pass

@@ -1,33 +1,40 @@
 {% extends "header.html" %}
 {% block content %}
 
-<link rel="stylesheet" href="/static/css/index.css">
-<script src="/static/js/index.js"></script>
+    <link rel="stylesheet" href="/static/css/index.css">
+    <script src="/static/js/index.js"></script>
 
-<div class="container" id="content">
+    <div class="container" id="content">
 
-    <div id="tags">
-        <h1 class="lead">Tags</h1>
-        <input id="tagInput" class="form-control" placeholder="Java, Python, Agile">
-        <button id="addTag" class="btn btn-light">Add</button>
 
-        <div id="tagList">
-            {% for tag in tags %}
-                <div class="tag">
+        <form id="CVform" enctype="multipart/form-data">
+            <input class="btn"  name="file" type="file"/>
+            <input class="btn btn-primary" id="uploadCV" type="button" value="Upload"/>
+        </form>
+
+        <div id="tags">
+            <h1 class="lead">Tags</h1>
+            <input id="tagInput" class="form-control" placeholder="Java, Python, Agile">
+            <button id="addTag" class="btn btn-light">Add</button>
+
+            <div id="tagList">
+                {% for tag in tags %}
+                    <div class="tag">
                     <span class="tagValue">
                         {{ tag }}
                     </span>
-                    <span aria-hidden="true" class="removeTag">&times;</span>
-                </div>
-            {% endfor %}
+                        <span aria-hidden="true" class="removeTag">&times;</span>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
+
+        <form action="/api/v0.0/createcover" method="GET" class="centered-horizontal">
+            <input id="urlInput" name="url" class="form-control centered-horizontal" type="text"
+                   placeholder="Job Posting URL">
+            <button class="btn btn-primary">Submit</button>
+        </form>
+
     </div>
-
-    <form action="/api/v0.0/createcover" method="GET" class="centered-horizontal">
-        <input id="urlInput" name="url" class="form-control centered-horizontal" type="text" placeholder="Job Posting URL">
-        <button class="btn btn-primary">Submit</button>
-    </form>
-
-</div>
 
 {% endblock %}
