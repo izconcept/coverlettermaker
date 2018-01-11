@@ -7,9 +7,9 @@
     <div class="container" id="content">
 
 
-        <form id="CVform" enctype="multipart/form-data">
-            <input class="btn"  name="file" type="file"/>
-            <input class="btn btn-primary" id="uploadCV" type="button" value="Upload"/>
+        <form id="CVform" enctype="multipart/form-data" action="/api/v0.0/uploadcv" method="POST">
+            <input type="file" name="cv" />
+            <input type="submit"/>
         </form>
 
         <div id="tags">

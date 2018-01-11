@@ -85,4 +85,4 @@ def upload_cv():
             if cv.filename == '':
                 return redirect(request.url)
             print(cv)
-    pass
+    return "file received"

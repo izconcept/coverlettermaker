@@ -1,16 +1,16 @@
 $(document).ready(function () {
-
-    $("#uploadCV").on('click', function() {
-        $.ajax({
-            type: 'POST',
-            url: '/api/v0.0/uploadcv',
-            data: new FormData($('#CVform')[0]),
-
-            success: function() {
-
-            }
-        })
-    });
+    //
+    // $("#uploadCV").on('click', function() {
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: '/api/v0.0/uploadcv',
+    //         data: new FormData($('#CVform')[0]),
+    //
+    //         success: function() {
+    //
+    //         }
+    //     })
+    // });
 
     $("#addTag").click(function () {
         $.ajax({
