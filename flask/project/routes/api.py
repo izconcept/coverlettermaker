@@ -3,8 +3,9 @@ from flask import redirect, request, Blueprint, make_response, flash, session, u
 from werkzeug.utils import secure_filename
 
 from project import logger
-from project.services.parser import *
+from project.services.html_parser import *
 from project.services.pdf_maker import *
+from project.services.pdf_parser import *
 
 
 api_blueprint = Blueprint('api_blueprint', __name__)
@@ -84,5 +85,6 @@ def upload_cv():
             cv = request.files['cv']
             if cv.filename == '':
                 return redirect(request.url)
-            print(cv)
+            from io import BytesIO
+            parse_cv(BytesIO(cv.read()))
     return "file received"

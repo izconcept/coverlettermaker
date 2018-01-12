@@ -9,3 +9,5 @@ flask_testing==0.6.2
 flask-wtf
 reportlab
 bs4
+pdfminer2
+PyPDF2
