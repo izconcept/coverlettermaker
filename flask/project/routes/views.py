@@ -1,4 +1,6 @@
-from flask import render_template, Blueprint, session
+from flask import render_template, Blueprint, session, request, redirect
+import requests
+import json
 
 website_blueprint = Blueprint('website_blueprint', __name__)
 
@@ -8,7 +10,30 @@ def index():
     tags = []
     if 'tags' in session:
         tags = session['tags']
-    return render_template('index.html', tags=tags)
+    if 'code' in request.args:
+        code = request.args['code']
+        r = requests.post("https://www.linkedin.com/oauth/v2/accessToken", data={'grant_type': 'authorization_code',
+                                                                                 'code': code,
+                                                                                 'redirect_uri': 'http://localhost/',
+                                                                                 'client_id': '78rpczh5d7fm7p',
+                                                                                 'client_secret': 'rhWRnE3BnmN0Ou3l'})
+        session['token'] = json.loads(r.text)["access_token"]
+        r = requests.get("https://api.linkedin.com/v1/people/~?format=json",
+                         headers={'Authorization': "Bearer " + session['token']})
+        profile = json.loads(r.text)
+        session['user_name'] = profile['firstName'] + " " + profile['lastName']
+
+        r = requests.get("https://api.linkedin.com/v2/skills?locale.language=en&locale.country=US",
+                         headers={'Authorization': "Bearer " + session['token']})
+
+        return render_template('index.html', tags=tags, name=session['user_name'])
+    else:
+        return redirect('/login')
+
+
+@website_blueprint.route('/login')
+def login():
+    return render_template('login.html')
 
 
 @website_blueprint.errorhandler(404)

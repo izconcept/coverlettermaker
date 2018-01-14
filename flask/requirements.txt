@@ -11,3 +11,4 @@ reportlab
 bs4
 pdfminer2
 PyPDF2
+requests
